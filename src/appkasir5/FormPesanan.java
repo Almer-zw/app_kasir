@@ -1,0 +1,611 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package appkasir5;
+import com.mysql.jdbc.Driver;
+import com.mysql.jdbc.Statement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+/**
+ *
+ * @author OWNER
+ */
+public class FormPesanan extends javax.swing.JFrame {
+private void datatable() {
+    DefaultTableModel tbl = new DefaultTableModel();
+    tbl.addColumn("ID Pesanan");
+    tbl.addColumn("ID Menu");
+    tbl.addColumn("Nama Menu");
+    tbl.addColumn("Harga");
+    tbl.addColumn("ID Pelanggan");
+    tbl.addColumn("Nama Pelanggan");
+    tbl.addColumn("Jumlah");
+    tbl.addColumn("ID User");
+    tbl.addColumn("Nama User");
+    tblPesanan.setModel(tbl);
+    try {
+        Statement statement = (Statement)
+        koneksi.GetConnection().createStatement();
+        ResultSet res = statement.executeQuery
+        ("select * from pesanan");
+          while (res.next())
+          {
+              tbl.addRow(new Object[]{
+              res.getString("Idpesanan"),
+              res.getString("Idmenu"),
+              res.getString("Namamenu"),
+              res.getString("Harga"),
+              res.getString("Idpelanggan"),
+              res.getString("Namapelanggan"),
+              res.getString("Jumlah"),
+              res.getString("Iduser"),
+              res.getString("Namauser"),
+          });
+              tblPesanan.setModel(tbl);
+          }
+    }catch (Exception e){
+    JOptionPane.showMessageDialog(rootPane,"Salah");
+    }
+}
+    /**
+     * Creates new form FormPesanan
+     */
+    public FormPesanan() {
+        initComponents();
+        datatable();
+        tampil_combo();
+        tampil_combo1();
+        tampil_combo2();
+        sembunyikan();
+    }
+private void bersihkan(){
+    txtIdPesanan.setText("");
+    cmbIdMenu.setSelectedItem("Pilih ID Menu");
+    txtNamaMenu.setText("");
+    txtHarga.setText("");
+    cmbIdPelanggan.setSelectedItem("Pilih ID Pelanggan");
+    txtNamaPelanggan.setText("");
+    txtJumlah.setText("");
+    cmbIdUser.setSelectedItem("Pilih ID User");
+    txtNamaUser.setText("");
+}
+
+private void buka() {
+    txtIdPesanan.enable(true);
+    cmbIdMenu.enable(true);
+    txtNamaMenu.enable(false);
+    txtHarga.enable(false);
+    cmbIdPelanggan.enable(true);
+    txtNamaPelanggan.enable(false);
+    txtJumlah.enable(true);
+    cmbIdUser.enable(true);
+    txtNamaUser.enable(false);
+    txtJumlah.requestFocus();
+}
+
+private void sembunyikan() {
+    txtIdPesanan.enable(false);
+    cmbIdMenu.enable(false);
+    txtNamaMenu.enable(false);
+    txtHarga.enable(false);
+    cmbIdPelanggan.enable(false);
+    txtNamaPelanggan.enable(false);
+    txtJumlah.enable(false);
+    cmbIdUser.enable(false);
+    txtNamaUser.enable(false);
+}
+public void tampil_combo()
+{
+    try {
+        Connection con = (Connection) koneksi.GetConnection();
+        Statement stt = (Statement) con.createStatement();
+        String sql = "select Idmenu from menu order by Idmenu asc";
+        ResultSet res = stt.executeQuery(sql);
+        
+        while(res.next()){
+            Object[] ob = new Object[1];
+            ob[0] = res.getString(1);
+            
+            cmbIdMenu.addItem((String) ob[0]);
+    }
+        res.close(); stt.close();
+}catch (Exception e){
+    JOptionPane.showMessageDialog(rootPane,"salah");
+}
+}
+public void tampil_combo1()
+{
+    try {
+        Connection con = (Connection) koneksi.GetConnection();
+        Statement stt = (Statement) con.createStatement();
+        String sql = "select Idpelanggan from pelanggan order by Idpelanggan asc";
+        ResultSet res = stt.executeQuery(sql);
+        
+        while(res.next()){
+            Object[] ob = new Object[1];
+            ob[0] = res.getString(1);
+            
+            cmbIdPelanggan.addItem((String) ob[0]);
+    }
+        res.close(); stt.close();
+}catch (Exception e){
+    JOptionPane.showMessageDialog(rootPane,"salah");
+}
+}
+public void tampil_combo2()
+{
+    try {
+        Connection con = (Connection) koneksi.GetConnection();
+        Statement stt = (Statement) con.createStatement();
+        String sql = "select Iduser from user order by Iduser asc";
+        ResultSet res = stt.executeQuery(sql);
+        
+        while(res.next()){
+            Object[] ob = new Object[1];
+            ob[0] = res.getString(1);
+            
+            cmbIdUser.addItem((String) ob[0]);
+    }
+        res.close(); stt.close();
+}catch (Exception e){
+    JOptionPane.showMessageDialog(rootPane,"salah");
+}
+}
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblPesanan = new javax.swing.JTable();
+        jLabel7 = new javax.swing.JLabel();
+        btnKeluar = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        btnHapus = new javax.swing.JButton();
+        btnTambah = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        cmbIdMenu = new javax.swing.JComboBox<>();
+        cmbIdPelanggan = new javax.swing.JComboBox<>();
+        cmbIdUser = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        txtNamaMenu = new javax.swing.JTextField();
+        txtHarga = new javax.swing.JTextField();
+        txtIdPesanan = new javax.swing.JTextField();
+        txtJumlah = new javax.swing.JTextField();
+        txtNamaUser = new javax.swing.JTextField();
+        txtNamaPelanggan = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        tblPesanan.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID Pesanan", "ID Menu", "Nama Menu", "Harga", "ID Pelanggan", "Nama Pelanggan", "Jumlah", "ID User", "Nama User"
+            }
+        ));
+        tblPesanan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPesananMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblPesanan);
+
+        jLabel7.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel7.setText("Id User");
+
+        btnKeluar.setText("KELUAR");
+        btnKeluar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKeluarActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel5.setText("Jumlah");
+
+        jLabel6.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel6.setText("Id Pelanggan");
+
+        btnHapus.setText("HAPUS");
+        btnHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHapusActionPerformed(evt);
+            }
+        });
+
+        btnTambah.setText("TAMBAH");
+        btnTambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTambahActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel4.setText("Id Menu");
+
+        jLabel8.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel8.setText("Id Pesanan");
+
+        cmbIdMenu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih ID Menu" }));
+        cmbIdMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbIdMenuActionPerformed(evt);
+            }
+        });
+
+        cmbIdPelanggan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih ID Pelanggan" }));
+        cmbIdPelanggan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbIdPelangganActionPerformed(evt);
+            }
+        });
+
+        cmbIdUser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih ID User", " " }));
+        cmbIdUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbIdUserActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel9.setText("Harga");
+
+        jLabel10.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel10.setText("Nama Menu");
+
+        jLabel11.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel11.setText("Nama Pelanggan");
+
+        jLabel12.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel12.setText("Nama User");
+
+        jPanel1.setBackground(new java.awt.Color(0, 204, 204));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setText("Pesanan Masseh");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(292, 292, 292)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(35, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(27, 27, 27))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel11)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel7)
+                                .addComponent(jLabel5))
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(jLabel12))
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtIdPesanan, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
+                            .addComponent(txtJumlah, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtNamaUser, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cmbIdMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbIdPelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbIdUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtHarga, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtNamaPelanggan)
+                            .addComponent(txtNamaMenu))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnKeluar, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnHapus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnTambah, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 667, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 43, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIdPesanan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnTambah))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(cmbIdMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(2, 2, 2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNamaMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(cmbIdPelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNamaPelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(1, 1, 1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtJumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnHapus))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(txtHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(jLabel7))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(cmbIdUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtNamaUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnKeluar)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void tblPesananMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPesananMouseClicked
+        int row = tblPesanan.getSelectedRow();
+        txtIdPesanan.setText((String)tblPesanan.getValueAt(row, 0));
+        cmbIdMenu.setSelectedItem((String)tblPesanan.getValueAt(row, 1));
+        txtNamaMenu.setText((String)tblPesanan.getValueAt(row, 2));
+        txtHarga.setText((String)tblPesanan.getValueAt(row, 3));
+        cmbIdPelanggan.setSelectedItem((String)tblPesanan.getValueAt(row, 4));
+        txtNamaPelanggan.setText((String)tblPesanan.getValueAt(row, 5));
+        txtJumlah.setText((String)tblPesanan.getValueAt(row, 6));
+        cmbIdUser.setSelectedItem((String)tblPesanan.getValueAt(row, 7));
+        txtNamaUser.setText((String)tblPesanan.getValueAt(row, 8));// TODO add your handling code here:
+    }//GEN-LAST:event_tblPesananMouseClicked
+
+    private void btnKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKeluarActionPerformed
+        int ok =JOptionPane.showConfirmDialog(rootPane,"Kok Keluar Sih Bang?","Pemberitahuan",JOptionPane.YES_NO_OPTION);
+        if(ok==0){
+            new MenuUtama().show();
+            this.dispose();// TODO add your handling code here:
+        }
+    }//GEN-LAST:event_btnKeluarActionPerformed
+
+    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
+        String Idpesanan = txtIdPesanan.getText();
+        try {
+            Statement statement = (Statement) koneksi.GetConnection().createStatement();
+            statement.executeUpdate("delete from pesanan where Idpesanan = ('"+Idpesanan+"');");
+            bersihkan();
+            sembunyikan();
+            datatable();
+            JOptionPane.showMessageDialog(null,"Sip Data Berhasil dihapus");
+        }catch (Exception t){
+            JOptionPane.showMessageDialog(null,"Yah Data Gagal Di Simpan Masbro");
+        }
+    }//GEN-LAST:event_btnHapusActionPerformed
+
+    private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
+
+if(btnTambah.getText() == "TAMBAH") {
+    buka();
+    bersihkan();
+    btnTambah.setText("SIMPAN");
+    btnHapus.setEnabled(false);
+    btnKeluar.setEnabled(false);
+}else {
+    String Idpesanan = txtIdPesanan.getText();
+    String Idmenu = (String) cmbIdMenu.getSelectedItem();
+    String Namamenu = txtNamaMenu.getText();
+    String Harga = txtHarga.getText();
+    String Idpelanggan = (String) cmbIdPelanggan.getSelectedItem();
+    String Namapelanggan = txtNamaPelanggan.getText();
+    String Jumlah = txtJumlah.getText();
+    String Iduser = (String) cmbIdUser.getSelectedItem();
+    String Namauser = txtNamaUser.getText();
+try {
+    Statement statement = (Statement) koneksi.GetConnection().createStatement();
+    statement.executeUpdate("insert into pesana values('"+Idpesanan+"','"+Idmenu+"','"+Namamenu+"','"+Harga+"','"+Idpelanggan+"','"+Namapelanggan+"','"+Jumlah+"','"+Iduser+"','"+Namauser+"');");
+        statement.close();
+        JOptionPane.showMessageDialog(null,"Sip Data Berhasil di Simpan");
+        datatable();
+        bersihkan();
+        sembunyikan();
+        btnTambah.setText("TAMBAH");
+        btnHapus.setEnabled(true);
+        btnKeluar.setEnabled(true);
+}catch (Exception t){
+    JOptionPane.showMessageDialog(null,"Yah Data Gagal Di Simpan Masbro");
+}
+}
+    }//GEN-LAST:event_btnTambahActionPerformed
+
+    private void cmbIdMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbIdMenuActionPerformed
+ try {
+      Connection con = (Connection) koneksi.GetConnection();
+        Statement stt = (Statement) con.createStatement();
+        String sql = "select Namamenu from menu where Idmenu='"+cmbIdMenu.getSelectedItem()+"'";
+        ResultSet res = stt.executeQuery(sql);
+        
+        while(res.next()){
+            Object[] ob = new Object[1];
+            ob[0] = res.getString(1);   
+            txtNamaMenu.setText((String) ob[0]);
+    }
+        res.close(); stt.close();
+}catch (Exception e){
+    JOptionPane.showMessageDialog(rootPane,"salah");
+    }    
+ 
+ try {
+      Connection con = (Connection) koneksi.GetConnection();
+        Statement stt = (Statement) con.createStatement();
+        String sql = "select Harga from menu where Idmenu='"+cmbIdMenu.getSelectedItem()+"'";
+        ResultSet res = stt.executeQuery(sql);
+        
+        while(res.next()){
+            Object[] ob = new Object[1];
+            ob[0] = res.getString(1);   
+            txtHarga.setText((String) ob[0]);
+    }
+        res.close(); stt.close();
+}catch (Exception e){
+    JOptionPane.showMessageDialog(rootPane,"salah");
+    }// TODO add your handling code here:
+    }//GEN-LAST:event_cmbIdMenuActionPerformed
+
+    private void cmbIdPelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbIdPelangganActionPerformed
+ try {
+      Connection con = (Connection) koneksi.GetConnection();
+        Statement stt = (Statement) con.createStatement();
+        String sql = "select Namapelanggan from pelanggan where Idpelanggan='"+cmbIdPelanggan.getSelectedItem()+"'";
+        ResultSet res = stt.executeQuery(sql);
+        
+        while(res.next()){
+            Object[] ob = new Object[1];
+            ob[0] = res.getString(1);   
+            txtNamaPelanggan.setText((String) ob[0]);
+    }
+        res.close(); stt.close();
+}catch (Exception e){
+    JOptionPane.showMessageDialog(rootPane,"salah");
+    }        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbIdPelangganActionPerformed
+
+    private void cmbIdUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbIdUserActionPerformed
+     try {
+      Connection con = (Connection) koneksi.GetConnection();
+        Statement stt = (Statement) con.createStatement();
+        String sql = "select Namauser from user where Iduser='"+cmbIdUser.getSelectedItem()+"'";
+        ResultSet res = stt.executeQuery(sql);
+        
+        while(res.next()){
+            Object[] ob = new Object[1];
+            ob[0] = res.getString(1);   
+            txtNamaUser.setText((String) ob[0]);
+    }
+        res.close(); stt.close();
+}catch (Exception e){
+    JOptionPane.showMessageDialog(rootPane,"salah");
+    }      // TODO add your handling code here:
+    }//GEN-LAST:event_cmbIdUserActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(FormPesanan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(FormPesanan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(FormPesanan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(FormPesanan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new FormPesanan().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnHapus;
+    private javax.swing.JButton btnKeluar;
+    private javax.swing.JButton btnTambah;
+    private javax.swing.JComboBox<String> cmbIdMenu;
+    private javax.swing.JComboBox<String> cmbIdPelanggan;
+    private javax.swing.JComboBox<String> cmbIdUser;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblPesanan;
+    private javax.swing.JTextField txtHarga;
+    private javax.swing.JTextField txtIdPesanan;
+    private javax.swing.JTextField txtJumlah;
+    private javax.swing.JTextField txtNamaMenu;
+    private javax.swing.JTextField txtNamaPelanggan;
+    private javax.swing.JTextField txtNamaUser;
+    // End of variables declaration//GEN-END:variables
+}
